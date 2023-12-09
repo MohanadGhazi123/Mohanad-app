@@ -9,5 +9,7 @@
     @foreach($posts as $post)
         <p>{{ $post -> text }}</p>
     @endforeach
+
+    <a href="{{ route('posts.create') }}">create</a>
 </body>
 </html>
