@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostTableController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,9 +27,9 @@ Route::get('/posts/create', [PostController::class, 'create'])->name('posts.crea
 
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard',[ PostTableController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/comments',[CommentController::class,'index'])->name('comments.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
