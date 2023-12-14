@@ -31,7 +31,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/comments/{comment}',[CommentController::class,'index'])->name('comments.index');
+// Route::get('/comments/{id}',[CommentController::class,'show'])->name('comments.show');
+
+Route::get('/comments/{id}',[CommentController::class,'index'])->name('comments.index');
+
+Route::post('/comments', [CommentController::class,'store']);
 
 Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
 

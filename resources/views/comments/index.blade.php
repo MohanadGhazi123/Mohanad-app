@@ -1,38 +1,55 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Comment') }}
-        </h2>
-    </x-slot>
-
+@extends('layouts.app')
 
 @section('content')
+    <form action="">
+        <input type="hidden" class="user_id" value="{{ auth()->user()->id }}">
+        <input type="hidden" class="post_id" value="{{ $comments->post_id }}">
+        <label for="">Description for comment</label>
+        <input type="text" class="desc">
+        <button class="add_comment">Submit</button>
+    </form>
+@endsection
 
-<div class="text-white mt-4">
 
-    <div class="grid grid-cols-4 gap-8">
-        @foreach($comments as $comment)
-<div class="block max-w-sm p-6  border border-gray-200 rounded-lg shadow 
-hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+@section('scripts')
 
-<div class="card text-black m-5">
-    <div class="card-header">
-        {{$comment->user->name}}
-    </div>
-    <div class="card-body">
-      <p class="card-text">{{ $comment -> text }}</p>
-      <div class="justify-center">
-        <a href="#" class="btn btn-primary">Edit</a>
-      <a href="#" class="btn btn-primary">Comment</a>
-      </div>
-      
-    </div>
-</div>
-</div>
-@endforeach
-    </div>
-</div>
+    <script>
 
+        $(document).ready(function () {
+
+            $(document).on('click', '.add_comment', function (e) {
+                e.preventDefault();
+                // console.log('hello man');
+
+                var data = {
+                    'desc' : $('.desc').val(),
+                    'post_id': $('.post_id').val(),
+                    'user_id': $('.user_id').val(),
+                }
+
+                console.log(data);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/comments",
+                    data: data,
+                    dataType: "json",
+                    success: function(response){
+                        console.log(response);
+                    }
+                });
+            });
+
+        });
+
+    </script>
 
 @endsection
-</x-app-layout>
+
+

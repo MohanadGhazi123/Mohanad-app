@@ -29,8 +29,12 @@
                         <div class="card-body">
                           <p class="card-text">{{ $post -> text }}</p>
                           <div class="justify-center">
-                            <a href="#" class="btn btn-primary">Edit</a>
-                          <a href="#" class="btn btn-primary">Comment</a>
+                            @auth
+                            @if(Auth::id() === $post->user->id)
+                                <a href="" class="btn btn-primary">Edit</a>
+                            @endif    
+                            @endauth
+                          <a href="{{ route('comments.index', ['id' => $post->id]) }}" class="btn btn-primary">Comment</a>
                           </div>
                           
                         </div>
