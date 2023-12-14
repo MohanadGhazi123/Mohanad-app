@@ -21,15 +21,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/{post}', [PostController::class, 'index'])->name('posts.index');
 
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
 
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
-Route::get('/dashboard',[ PostTableController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/comments',[CommentController::class,'index'])->name('comments.index');
+Route::get('/comments/{comment}',[CommentController::class,'index'])->name('comments.index');
+
+Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
+
+Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

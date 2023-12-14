@@ -8,22 +8,46 @@
 
 @section('content')
 
-<div class="text-white mt-4">
-
-    <div class="grid grid-cols-4 gap-8">
-        @foreach($posts as $post)
-        <div class="block max-w-sm p-6  border border-gray-200 rounded-lg shadow 
-            hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                {{ $post->user->name  }}
-                <div class="block max-w-sm p-6  border border-gray-200 rounded-lg shadow 
-                    hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                        {{ $post -> text }}
+<div class="py-12">
+    <div class=" mt-2 text-white ">
+            
+            <div class="col-md-9 w-75 ">
+                <div class=" m-12 p-5 border border-gray-500 rounded-lg shadow 
+            dark:bg-gray-800 dark:border-gray-700  ">
+            <button type="button" class="btn btn-outline-primary">
+                <a href="{{ route('posts.create') }}">create</a>
+            </button>
+            </div>
+                <div class=" m-12 p-6  border border-gray-200 rounded-lg shadow 
+                 dark:bg-gray-900 dark:border-gray-700 ">
+                 
+                    @foreach($posts as $post)
+                    <div class="card text-black m-5">
+                        <div class="card-header">
+                            {{$post->user->name}}
+                        </div>
+                        <div class="card-body">
+                          <p class="card-text">{{ $post -> text }}</p>
+                          <div class="justify-center">
+                            <a href="#" class="btn btn-primary">Edit</a>
+                          <a href="#" class="btn btn-primary">Comment</a>
+                          </div>
+                          
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
+                
+                <div class="mt-4">
+                    {{$posts->links()}}
+                </div>
+            </div>
+
         </div>
-        @endforeach
-    </div>
+        
+    
+   
 </div>
-
-
+</div>
 @endsection
 </x-app-layout>
