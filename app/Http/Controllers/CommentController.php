@@ -61,12 +61,13 @@ class CommentController extends Controller
     }
 
     /**
+     * 
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        $comment = Comment::findOrFail($id);
-        return view('comments.show', compact('comment'));
+        // $comment = Comment::findOrFail($id);
+        // return view('comments.show', compact('comment'));
     }
 
     /**

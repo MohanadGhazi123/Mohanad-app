@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -31,12 +32,39 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $post = new Post;
         $post->text = $request->postText;
         $post->user_id = 1;
         $post->save();
 
-        return redirect('/posts');
+        return redirect()->back();
+
+        // $validateInput = $request->validate([
+        //     'text' => 'required|max:250',
+        //     // 'postsImage' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Adjust file types and size as needed
+        // ]);
+
+
+        // $post = new Post;
+        // $post->text = $request->postText;
+        // $post->user_id = Auth::user()->id;
+
+        // //Below code is to handle the exception, which may occur during the image upload.
+        // // $locationOfImage = null;
+
+        // // if($request->hasFile('posts_image')){
+        // //     $locationOfImage = $request->file('posts_image')->store('images/posts', 'public');
+        // // }
+        // // else{
+        // //     $locationOfImage = null;
+        // // }
+
+        // // $post->posts_image = $locationOfImage;  
+        // // dd($post);
+        // $post->save();
+
+        // return redirect()->back();
     }
 
     /**
@@ -83,7 +111,9 @@ class PostController extends Controller
             // 'image' => $imagePath,
         ]);
 
-        return redirect()->route('posts.index');
+        $posts = Post::all();
+        $posts = Post::orderBy('created_at','DESC')->paginate(5);
+        return view('posts.index', ['posts' => $posts]);
     }
 
     /**
