@@ -4,6 +4,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostTableController;
+use App\Http\Controllers\QuestionsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,10 +44,13 @@ Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edi
 
 Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/fetch', [QuestionsController::class, 'fetchInsert']);
+Route::get('/ShowQuestionsData', [QuestionsController::class, 'show']);
 require __DIR__.'/auth.php';

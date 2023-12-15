@@ -32,10 +32,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
         $post = new Post;
         $post->text = $request->postText;
         $post->user_id = 1;
+        $image = $request->image;
+        if ($image) {
+            $imagename = time() . '.' . $image->getClientOriginalExtension();
+            $request->image->move('uploads/post_images/', $imagename);
+            $post->posts_image = $imagename;
+        }
         $post->save();
 
         return redirect()->back();

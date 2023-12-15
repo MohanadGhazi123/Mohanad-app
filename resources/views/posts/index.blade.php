@@ -12,13 +12,21 @@
   <div class=" m-5 p-6  border border-gray-500 rounded-lg shadow 
   hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
   {{-- <form action="{{ route('posts.store') }}" method="post" id="postForm"> --}}
-    <form action="{{ route('posts.store') }}" method="post" id="postForm"> 
+    <form action="{{ route('posts.store') }}" method="post" id="postForm" enctype="multipart/form-data"> 
       @csrf
-      <div class="mb-3">
-        <label for="InputPost" class="form-label">Post</label>
-        <input type="text" class="form-control" name="postText" id="postContent">
+      <div class="row">
+          <div class="col-12">
+            <label for="InputPost" class="form-label">Post</label>
+            <input type="text" class="form-control" name="postText">
+          </div>
+          <div class="col-12">
+            <label for="InputPost" class="form-label">Image</label>
+            <input type="file" class="form-control" name="image">
+          </div>
+          <div class="col-12">
+            <input type="submit" value="Posts">
+          </div>
       </div>
-     <input type="submit" value="Posts">
     </form>
   </div>
   
@@ -38,7 +46,7 @@
                       </div>
                       <div class="card-body">
                         <p class="card-text">{{ $post -> text }}</p>
-
+                        <img src="{{asset('uploads/post_images/'.$post->posts_image)}}" class="card-img-top">
                         <div>
                           @foreach($post->comments as $comment)
 
