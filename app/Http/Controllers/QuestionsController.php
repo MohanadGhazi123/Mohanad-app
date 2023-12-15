@@ -6,11 +6,8 @@ use App\Models\Question;
 use App\Services\ExternalApiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-
 class QuestionsController extends Controller
-{
-
-    
+{    
     protected $externalApiService;
 
     public function __construct(ExternalApiService $externalApiService)

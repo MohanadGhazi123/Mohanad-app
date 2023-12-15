@@ -3,7 +3,7 @@
 
 namespace App\Services;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\Client; //HTTP Request
 use Illuminate\Support\Facades\Http;
 
 class ExternalApiService
